@@ -1,32 +1,35 @@
 package com.gt.broadcastreceiver;
 
-import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Toast;
 
-public class BootUpService extends Service {
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+public class BootUpService extends JobIntentService {
+
+    // You can assign any number to your job id
+    final static int job_id = 95;
+
+    public static void enqueueWork(Context context, Intent intent) {
+        enqueueWork(context, BootUpService.class, job_id, intent);
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    protected void onHandleWork(@NonNull Intent intent) {
         // Any code you need to run on boot up can be placed here.
         // This is just a sample Toast message to show our BroadcastReceiver works.
-        Toast.makeText(getApplicationContext(), "Our BroadcastReceiver works! Fantastic!", Toast.LENGTH_LONG).show();
-
-        // Stops the Service after it's done.
-        stopSelf();
-        // Do not restart the Service till the next reboot.
-        return START_NOT_STICKY;
+        // We'll be using a Handler to run our Toast since it needs to run on the UI thread. Otherwise you don't need it.
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Our BroadcastReceiver works! Fantastic!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

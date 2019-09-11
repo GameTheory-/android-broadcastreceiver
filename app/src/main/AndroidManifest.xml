@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.gt.broadcastreceiver">
 
+    <!--For pre-android O to run JobIntentService WAKE_LOCK is needed-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -27,7 +29,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".BootUpService" />
+        <service android:name=".BootUpService"
+          android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     </application>
 

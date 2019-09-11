@@ -10,8 +10,7 @@ public class BootUpReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // Start our BootUpService class once boot up has completed
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            Intent serviceIntent = new Intent(context, BootUpService.class);
-            context.startService(serviceIntent);
+            BootUpService.enqueueWork(context, new Intent());
         }
     }
 
