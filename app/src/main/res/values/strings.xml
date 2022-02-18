@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">BroadcastReceiver</string>
-    <string name="info">To test the BroadcastReceiver reboot your phone to see a Toast message on your home screen once boot up has completed and the UI has fully loaded.</string>
+    <string name="info">To test the BroadcastReceiver and WorkManager reboot your phone to see a Notification message once boot up has completed and the UI has loaded.</string>
 </resources>
